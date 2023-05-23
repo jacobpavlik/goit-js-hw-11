@@ -44,11 +44,11 @@ async function getUserInput() {
 //     'Sorry, there are no images matching your search query. Please try again.'
 //   )
 // );
-// console.log(
-//   Notiflix.Notify.warning(
-//     "We're sorry, but you've reached the end of search results."
-//   )
-// );
+console.log(
+  Notiflix.Notify.warning(
+    "We're sorry, but you've reached the end of search results."
+  )
+);
 // console.log(Notiflix.Notify.success('Hooray! We found ${totalHits} images.'));
 
 // fetch(https://pixabay.com/api/)
