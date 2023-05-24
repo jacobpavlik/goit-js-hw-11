@@ -2,8 +2,20 @@ import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 const axios = require('axios').default;
-const input = document.querySelector('#search-box');
-console.log(input);
+const input = document.querySelector('#search-form');
+const submitBtn = document.querySelector('#search-form').children[1];
+console.log(submitBtn);
+
+function numberPage() {}
+
+function whenSubmit(event) {
+  event.preventDefault();
+  console.log(
+    'Yes, you clicked submit button, and now write something useful!'
+  );
+}
+function ifPageIsReloaded() {}
+window.addEventListener('load', ifPageIsReloaded);
 
 async function getUserInput() {
   try {
@@ -13,6 +25,8 @@ async function getUserInput() {
         q: 'input.value',
         image_type: 'photo',
         orientation: 'horizontal',
+        per_page: 40,
+        page: numberPage,
         safesearch: true,
       },
     });
@@ -22,6 +36,7 @@ async function getUserInput() {
   }
 }
 
+submitBtn.addEventListener('click', whenSubmit);
 //przykład z paramsami axiosa
 // axios
 //   .get('/user', {
