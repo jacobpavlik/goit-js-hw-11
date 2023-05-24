@@ -40,6 +40,8 @@ async function getUserInput() {
       },
     });
     console.log(response);
+
+    // POCZĄTEK forEach - działa średnio
     // [response].forEach((images, i) => {
     //   const imageTemplate = `<div class="photo-card">
     //   <img src="${images.data.hits[i].webformatURL}" alt="${images.data.hits[i].tags}" loading="lazy" />
@@ -84,6 +86,7 @@ async function getUserInput() {
     //   console.log(images.data.totalHits);
     //   Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
     // });
+    //^^^ KONIEC forEach - działa średnio
   } catch (error) {
     console.error(error);
     Notiflix.Notify.failure(
