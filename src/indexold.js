@@ -40,29 +40,34 @@ async function getUserInput() {
       },
     });
     console.log(response);
+
+    // POCZĄTEK forEach - działa średnio
     [response].forEach((images, i) => {
       const imageTemplate = `<div class="photo-card">
-      <img src="${images.data.hits.webformatURL}" alt="${images.data.hits.tags}" loading="lazy" />
+      <img src="${images.data.hits[i].webformatURL}" alt="${images.data.hits[i].tags}" loading="lazy" />
       <div class="info">
         <p class="info-item">
           <b>Likes</b>
-          <p>${images.data.hits.likes}</p>
+          ${images.data.hits[i].likes}
         </p>
         <p class="info-item">
           <b>Views</b>
-          <p>${images.data.hits.views}</p>
+          ${images.data.hits[i].views}
         </p>
         <p class="info-item">
           <b>Comments</b>
-          <p>${images.data.hits.comments}</p>
+          ${images.data.hits[i].comments}
         </p>
         <p class="info-item">
           <b>Downloads</b>
-          <p>${images.data.hits.downloads}</p>
+          ${images.data.hits[i].downloads}
         </p>
       </div>
     </div>`;
-
+      const gallery = document.querySelector('.gallery');
+      console.log(`gallery`, gallery);
+      gallery.insertAdjacentHTML('beforeend', imageTemplate);
+      console.log(gallery);
       console.log(images.data.hits[i]);
       console.log(images.data.hits[i].webformatURL);
       console.log(images.data.hits[i].tags);
@@ -82,6 +87,7 @@ async function getUserInput() {
       console.log(images.data.totalHits);
       Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
     });
+    //^^^ KONIEC forEach - działa średnio
   } catch (error) {
     console.error(error);
     Notiflix.Notify.failure(

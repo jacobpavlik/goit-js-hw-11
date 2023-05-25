@@ -1,7 +1,17 @@
 .gallery {
   display: flex;
   padding: 10px;
+
+  // display: grid;
+  // max-width: 1140px;
+  // grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  // grid-auto-rows: 240px;
+  // grid-gap: 12px;
+  // justify-content: center;
+  // margin-left: auto;
+  // margin-right: auto;
 }
+
 .info {
   display: flex;
   justify-content: space-around;
@@ -13,4 +23,8 @@
 }
 b {
   margin-bottom: 5px;
+}
+.photo-card {
+  padding: 5px;
+  margin: 5px;
 }
