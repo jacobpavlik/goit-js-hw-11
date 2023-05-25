@@ -42,50 +42,51 @@ async function getUserInput() {
     console.log(response);
 
     // POCZĄTEK forEach - działa średnio
-    // [response].forEach((images, i) => {
-    //   const imageTemplate = `<div class="photo-card">
-    //   <img src="${images.data.hits[i].webformatURL}" alt="${images.data.hits[i].tags}" loading="lazy" />
-    //   <div class="info">
-    //     <p class="info-item">
-    //       <b>Likes</b>
-    //       <p>${images.data.hits[i].likes}</p>
-    //     </p>
-    //     <p class="info-item">
-    //       <b>Views</b>
-    //       <p>${images.data.hits[i].views}</p>
-    //     </p>
-    //     <p class="info-item">
-    //       <b>Comments</b>
-    //       <p>${images.data.hits[i].comments}</p>
-    //     </p>
-    //     <p class="info-item">
-    //       <b>Downloads</b>
-    //       <p>${images.data.hits[i].downloads}</p>
-    //     </p>
-    //   </div>
-    // </div>`;
-    //   const gallery = document.body;
-    //   gallery.insertAdjacentHTML('beforeend', imageTemplate);
-    //   console.log(gallery);
-    //   console.log(images.data.hits[i]);
-    //   console.log(images.data.hits[i].webformatURL);
-    //   console.log(images.data.hits[i].tags);
-    //   console.log(images.data.hits[i].likes);
-    //   console.log(images.data.hits[i].views);
-    //   console.log(images.data.hits[i].comments);
-    //   console.log(images.data.hits[i].downloads);
-    //   console.log(images.data.hits[0]);
-    //   console.log(images.data.hits[0].webformatURL);
-    //   console.log(images.data.hits[0].tags);
-    //   console.log(images.data.hits[0].likes);
-    //   console.log(images.data.hits[0].views);
-    //   console.log(images.data.hits[0].comments);
-    //   console.log(images.data.hits[0].downloads);
+    [response].forEach((images, i) => {
+      const imageTemplate = `<div class="photo-card">
+      <img src="${images.data.hits[i].webformatURL}" alt="${images.data.hits[i].tags}" loading="lazy" />
+      <div class="info">
+        <p class="info-item">
+          <b>Likes</b>
+          ${images.data.hits[i].likes}
+        </p>
+        <p class="info-item">
+          <b>Views</b>
+          ${images.data.hits[i].views}
+        </p>
+        <p class="info-item">
+          <b>Comments</b>
+          ${images.data.hits[i].comments}
+        </p>
+        <p class="info-item">
+          <b>Downloads</b>
+          ${images.data.hits[i].downloads}
+        </p>
+      </div>
+    </div>`;
+      const gallery = document.querySelector('.gallery');
+      console.log(`gallery`, gallery);
+      gallery.insertAdjacentHTML('beforeend', imageTemplate);
+      console.log(gallery);
+      console.log(images.data.hits[i]);
+      console.log(images.data.hits[i].webformatURL);
+      console.log(images.data.hits[i].tags);
+      console.log(images.data.hits[i].likes);
+      console.log(images.data.hits[i].views);
+      console.log(images.data.hits[i].comments);
+      console.log(images.data.hits[i].downloads);
+      console.log(images.data.hits[0]);
+      console.log(images.data.hits[0].webformatURL);
+      console.log(images.data.hits[0].tags);
+      console.log(images.data.hits[0].likes);
+      console.log(images.data.hits[0].views);
+      console.log(images.data.hits[0].comments);
+      console.log(images.data.hits[0].downloads);
 
-    //   let totalHits = images.data.totalHits;
-    //   console.log(images.data.totalHits);
-    //   Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
-    // });
+      let totalHits = images.data.totalHits;
+      console.log(images.data.totalHits);
+      Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+    });
     //^^^ KONIEC forEach - działa średnio
   } catch (error) {
     console.error(error);

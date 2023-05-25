@@ -1,0 +1,16 @@
+.gallery {
+  display: flex;
+  padding: 10px;
+}
+.info {
+  display: flex;
+  justify-content: space-around;
+}
+.info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+b {
+  margin-bottom: 5px;
+}
