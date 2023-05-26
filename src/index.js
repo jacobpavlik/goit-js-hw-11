@@ -76,3 +76,13 @@ const gallery = document.querySelector('.gallery');
 
 input.addEventListener('submit', whenSubmit);
 submitBtn.addEventListener('click', whenSubmit);
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
+function selectImage() {
+  lightbox.on();
+}
+
+// const gallery = document.querySelector('.gallery');
+gallery.addEventListener('click', selectImage);
