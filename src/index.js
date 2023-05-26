@@ -64,11 +64,10 @@ async function getUserInput() {
     </div>`;
       console.log(`gallery`, gallery);
       gallery.insertAdjacentHTML('beforeend', imageTemplate);
-
-      let totalHits = response.data.totalHits;
-      console.log(response.data.totalHits);
-      Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
     });
+    let totalHits = response.data.totalHits;
+    console.log(response.data.totalHits);
+    Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
 
     // POCZĄTEK forEach - działa średnio
     //   [response].forEach((images, i) => {
