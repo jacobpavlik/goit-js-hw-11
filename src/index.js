@@ -11,8 +11,9 @@ let numberPage = 1;
 function whenSubmit(event) {
   event.preventDefault();
   gallery.innerHTML = '';
-  getUserInput();
   numberPage = 1;
+  getUserInput();
+  // Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
   return input.value;
 }
 
@@ -64,27 +65,51 @@ async function getUserInput() {
     let totalHits = response.data.totalHits;
     console.log(response.data.totalHits);
     if (totalHits === 0) {
+      console.log('response totalhits = 0');
       Notiflix.Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
       return;
     }
-    Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+    if (numberPage === 1) {
+      Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+    }
+
+    // Notiflix.Notify.warning(
+    //   "BLAVLAVLAQWe're sorry, but you've reached the end of search results."
+    // );
+    // return;
   } catch (error) {
-    console.error(error);
-    Notiflix.Notify.failure(
-      'Sorry, there are no images matching your search query. Please try again.'
+    console.error(`catch(error)`, error);
+    Notiflix.Notify.warning(
+      "We're sorry, but you've reached the end of search results."
     );
   }
 }
 
-function scrollDownToLoadMore() {
-  if (gallery.innerHTML === '') {
-    return;
+// const hasMorePhotos = ({ page, per_page, totalHits }) => {
+//   const startIndex = (page - 1) * per_page + 1;
+//   console.log(`page`, page);
+//   console.log(`per_page`, per_page);
+//   console.log(`totalHits`, totalHits);
+//   console.log(`hasMorePhotos`, hasMorePhotos);
+
+//   return totalHits === 0 || startIndex < totalHits || photos.length === 0;
+// };
+
+async function scrollHandler() {
+  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+  // if (scrollTop + clientHeight >= scrollHeight - 1 && hasMorePhotos) { // nie działa
+  if (scrollTop + clientHeight >= scrollHeight - 1) {
+    console.log('jestem na dole strony');
+    Notiflix.Notify.info('Trying to load more photos...');
+    numberPage = numberPage + 1;
+    await getUserInput();
   }
-  numberPage = numberPage + 1;
-  getUserInput();
+  console.log('jak nie ma dołu strony - czyli scrollowanie');
 }
+
+window.addEventListener('scroll', scrollHandler);
 
 const gallery = document.querySelector('.gallery');
 
@@ -95,8 +120,6 @@ const lightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
 
-// function selectImage() {
-//   // lightbox.on();
-// }
-
-// gallery.addEventListener('click', selectImage);
+// Notiflix.Notify.info(
+//   "We're sorry, but you've reached the end of search results."
+// );
