@@ -6,14 +6,13 @@ const input = document.querySelector('#search-form').children[0];
 const submitBtn = document.querySelector('#search-form').children[1];
 console.log(submitBtn);
 console.log(input);
-function numberPage() {
-  let numberPage = 1;
-}
+let numberPage = 1;
 
 function whenSubmit(event) {
   event.preventDefault();
   gallery.innerHTML = '';
   getUserInput();
+  numberPage = 1;
   return input.value;
 }
 
@@ -34,7 +33,7 @@ async function getUserInput() {
     console.log(`const photos`, photos);
     console.log(`const photos[0]`, photos[0]);
     photos.forEach(photo => {
-      console.log(`photos po forEach-image`, photo);
+      console.log(`photos po forEach-photo`, photo);
       const imageTemplate = `<div class="photo-card">
       <div class="photo-card__container">
       <a class="photo-card__image" href="${photo.largeImageURL}">
@@ -61,8 +60,15 @@ async function getUserInput() {
       console.log(`gallery`, gallery);
       gallery.insertAdjacentHTML('beforeend', imageTemplate);
     });
+    lightbox.refresh();
     let totalHits = response.data.totalHits;
     console.log(response.data.totalHits);
+    if (totalHits === 0) {
+      Notiflix.Notify.failure(
+        'Sorry, there are no images matching your search query. Please try again.'
+      );
+      return;
+    }
     Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
   } catch (error) {
     console.error(error);
@@ -70,6 +76,14 @@ async function getUserInput() {
       'Sorry, there are no images matching your search query. Please try again.'
     );
   }
+}
+
+function scrollDownToLoadMore() {
+  if (gallery.innerHTML === '') {
+    return;
+  }
+  numberPage = numberPage + 1;
+  getUserInput();
 }
 
 const gallery = document.querySelector('.gallery');
@@ -80,9 +94,9 @@ const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
 });
-function selectImage() {
-  lightbox.on();
-}
 
-// const gallery = document.querySelector('.gallery');
-gallery.addEventListener('click', selectImage);
+// function selectImage() {
+//   // lightbox.on();
+// }
+
+// gallery.addEventListener('click', selectImage);
