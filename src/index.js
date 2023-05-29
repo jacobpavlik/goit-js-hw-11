@@ -4,8 +4,6 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 const axios = require('axios').default;
 const input = document.querySelector('#search-form').children[0];
 const submitBtn = document.querySelector('#search-form').children[1];
-console.log(submitBtn);
-console.log(input);
 let numberPage = 1;
 
 function whenSubmit(event) {
@@ -13,7 +11,6 @@ function whenSubmit(event) {
   gallery.innerHTML = '';
   numberPage = 1;
   getUserInput();
-  // Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
   return input.value;
 }
 
@@ -31,10 +28,7 @@ async function getUserInput() {
       },
     });
     const photos = response.data.hits;
-    console.log(`const photos`, photos);
-    console.log(`const photos[0]`, photos[0]);
     photos.forEach(photo => {
-      console.log(`photos po forEach-photo`, photo);
       const imageTemplate = `<div class="photo-card">
       <div class="photo-card__container">
       <a class="photo-card__image" href="${photo.largeImageURL}">
@@ -58,14 +52,11 @@ async function getUserInput() {
         </p>
       </div>
     </div>`;
-      console.log(`gallery`, gallery);
       gallery.insertAdjacentHTML('beforeend', imageTemplate);
     });
     lightbox.refresh();
     let totalHits = response.data.totalHits;
-    console.log(response.data.totalHits);
     if (totalHits === 0) {
-      console.log('response totalhits = 0');
       Notiflix.Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
@@ -81,7 +72,7 @@ async function getUserInput() {
       return;
     }
   } catch (error) {
-    console.error(`catch(error)`, error);
+    // console.error(`catch(error)`, error);
     Notiflix.Notify.failure(
       "We're sorry, but you've reached the end of search results."
     );
@@ -95,7 +86,7 @@ async function scrollHandler() {
     numberPage = numberPage + 1;
     await getUserInput();
   }
-  console.log('jak nie ma dołu strony - czyli scrollowanie');
+  // console.log('jak nie ma dołu strony - czyli scrollowanie');
 }
 
 window.addEventListener('scroll', scrollHandler);
