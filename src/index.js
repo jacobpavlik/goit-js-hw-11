@@ -74,35 +74,24 @@ async function getUserInput() {
     if (numberPage === 1) {
       Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
     }
-
-    // Notiflix.Notify.warning(
-    //   "BLAVLAVLAQWe're sorry, but you've reached the end of search results."
-    // );
-    // return;
+    if (photos.length === 0) {
+      Notiflix.Notify.warning(
+        "We're sorry, but you've reached the end of search results."
+      );
+      return;
+    }
   } catch (error) {
     console.error(`catch(error)`, error);
-    Notiflix.Notify.warning(
+    Notiflix.Notify.failure(
       "We're sorry, but you've reached the end of search results."
     );
   }
 }
 
-// const hasMorePhotos = ({ page, per_page, totalHits }) => {
-//   const startIndex = (page - 1) * per_page + 1;
-//   console.log(`page`, page);
-//   console.log(`per_page`, per_page);
-//   console.log(`totalHits`, totalHits);
-//   console.log(`hasMorePhotos`, hasMorePhotos);
-
-//   return totalHits === 0 || startIndex < totalHits || photos.length === 0;
-// };
-
 async function scrollHandler() {
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-  // if (scrollTop + clientHeight >= scrollHeight - 1 && hasMorePhotos) { // nie działa
   if (scrollTop + clientHeight >= scrollHeight - 1) {
-    console.log('jestem na dole strony');
-    Notiflix.Notify.info('Trying to load more photos...');
+    Notiflix.Notify.info('Loading more photos...');
     numberPage = numberPage + 1;
     await getUserInput();
   }
@@ -119,7 +108,3 @@ const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
 });
-
-// Notiflix.Notify.info(
-//   "We're sorry, but you've reached the end of search results."
-// );
